@@ -55,36 +55,4 @@ public class HttpClientUtil {
         }
         return response;
     }
-
-    public static String addParameters(HashMap<String,String> params, String url) throws UnsupportedEncodingException {
-        StringBuffer sb = new StringBuffer();
-        sb.append(url);
-        sb.append("?");
-        for(String key: params.keySet()){
-            sb.append(key);
-            sb.append("=");
-            sb.append(URLEncoder.encode(params.get(key),"utf-8"));
-            sb.append("&");
-        }
-        String res = sb.toString();
-        return res.substring(0,res.length()-1);
-    }
-
-    public static HashMap<String,String> readParametersFromFile(String dir) throws IOException {
-        HashMap<String,String> map = new HashMap<>();
-        try{
-            File file = new File(dir);
-            InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
-            BufferedReader br = new BufferedReader(reader);
-            String line = "";
-            line = br.readLine();
-            while (line!=null){
-                map.put(line.split(":")[0],line.split(":")[1]);
-                line = br.readLine();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return map;
-    }
 }
