@@ -1,8 +1,7 @@
 package com.CSR.DataObtaining.Jobs;
 
-import com.CSR.DataObtaining.Beans.TrafficInfo;
+
 import com.CSR.DataObtaining.KafkaStorage.Producer;
-import com.CSR.DataObtaining.Utils.TrafficInfoTranceUtil;
 import com.CSR.DataObtaining.Utils.URLGeneratorUtil;
 
 import java.io.IOException;
@@ -21,7 +20,6 @@ public class TrafficInfoThread implements Runnable{
         String result = null;
         try {
             result = URLGeneratorUtil.getRealTimeBoundTrafficInfo(leftDown,rightUp);
-            TrafficInfo trafficInfo = TrafficInfoTranceUtil.getTrafficInfoFromString(result);
             System.out.println(result);
             Producer producer = new Producer();
             producer.sendToKafka("trafficInfo",result);

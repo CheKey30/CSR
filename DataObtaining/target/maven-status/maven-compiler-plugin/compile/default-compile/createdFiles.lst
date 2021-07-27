@@ -1,7 +1,6 @@
 com\CSR\DataObtaining\Utils\HttpClientUtil.class
-com\CSR\DataObtaining\Utils\TrafficInfoTranceUtil.class
-com\CSR\DataObtaining\Beans\TrafficInfo.class
-com\CSR\DataObtaining\Beans\CongestionSection.class
-com\CSR\DataObtaining\Main.class
-com\CSR\DataObtaining\Beans\RoadTraffic.class
-com\CSR\DataObtaining\Beans\Evaluation.class
+com\CSR\DataObtaining\Jobs\TrafficInfoThread.class
+com\CSR\DataObtaining\Jobs\RealTimeTrafficInfoJob.class
+com\CSR\DataObtaining\Utils\URLGeneratorUtil.class
+com\CSR\DataObtaining\KafkaStorage\Producer.class
+com\CSR\DataObtaining\Jobs\ChargeStationPositionInfoJob.class

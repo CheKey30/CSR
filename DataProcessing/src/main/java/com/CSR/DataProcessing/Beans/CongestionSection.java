@@ -1,4 +1,4 @@
-package com.CSR.DataObtaining.Beans;
+package com.CSR.DataProcessing.Beans;
 
 public class CongestionSection {
     private String sectionDesc;

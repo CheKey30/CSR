@@ -1,2 +1,8 @@
 /DataObtaining/.idea/
 /DatapProcessing/.idea/
+/DataProcessing/src/main/resources/OutPutData.txt
+/DataObtaining/target/
+/DataProcessing/target/
+
+/DataObtaining/src/main/resources/ArearAddress.txt
+/DataObtaining/src/main/resources/TrafficInfoParams.txt
