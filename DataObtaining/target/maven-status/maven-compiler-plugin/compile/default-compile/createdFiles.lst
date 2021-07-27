@@ -1,6 +1,0 @@
-com\CSR\DataObtaining\Utils\HttpClientUtil.class
-com\CSR\DataObtaining\Jobs\TrafficInfoThread.class
-com\CSR\DataObtaining\Jobs\RealTimeTrafficInfoJob.class
-com\CSR\DataObtaining\Utils\URLGeneratorUtil.class
-com\CSR\DataObtaining\KafkaStorage\Producer.class
-com\CSR\DataObtaining\Jobs\ChargeStationPositionInfoJob.class
