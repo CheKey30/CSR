@@ -27,7 +27,6 @@ public class RealTimeTrafficInfoJob {
             }
             Thread.sleep(60000);
         }
-
     }
 }
 
