@@ -10,7 +10,7 @@ public class Producer {
 
     public Producer() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "127.0.0.1:9092");//xxx服务器ip
+        props.put("bootstrap.servers", "kafka130:9092");//xxx服务器ip
         props.put("acks", "all");//所有follower都响应了才认为消息提交成功，即"committed"
         props.put("retries", 0);//retries = MAX 无限重试，直到你意识到出现了问题:)
         props.put("batch.size", 16384);//producer将试图批处理消息记录，以减少请求次数.默认的批量处理消息字节数

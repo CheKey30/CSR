@@ -12,9 +12,11 @@ import java.util.regex.Pattern;
 public class URLGeneratorUtil {
 
     private static final String DIR = "E:\\CSR\\DataObtaining\\src\\main\\resources\\TrafficInfoParams.txt";
+    private static final String DIR2 = "E:\\CSR\\DataObtaining\\src\\main\\resources\\ChargingStationParams.txt";
     private static final String ADDRESSES_DIR = "E:\\CSR\\DataObtaining\\src\\main\\resources\\ArearAddress.txt";
     private static final String REAL_TIME_TRAFFIC = "http://api.map.baidu.com/traffic/v1/bound";
     private static final String ADDRESS_TO_COORDINATE = "http://api.map.baidu.com/geocoding/v3/";
+    private static final String LOCATION_SEARCHING = "https://api.map.baidu.com/place/v2/search";
     public static String addParameters(HashMap<String,String> params, String url) throws UnsupportedEncodingException {
         StringBuffer sb = new StringBuffer();
         sb.append(url);
@@ -81,9 +83,18 @@ public class URLGeneratorUtil {
         return readParametersFromFile(ADDRESSES_DIR,";");
     }
 
-    public static void main(String[] args) throws IOException {
-        String res  = getRealTimeBoundTrafficInfo("深圳市南山区南光路46号","后海大道和滨海大道交叉口东北侧");
-        System.out.println(res);
+
+    public static String getChargingStations(int page) throws IOException {
+        HashMap<String,String> params = readParametersFromFile(DIR2,":");
+        params.put("page_num",String.valueOf(page));
+        String finalUrl = addParameters(params,LOCATION_SEARCHING);
+        String result = HttpClientUtil.doGet(finalUrl,"UTF-8");
+        return result;
     }
+
+//    public static void main(String[] args) throws IOException {
+//        String res  = getRealTimeBoundTrafficInfo("深圳市南山区南光路46号","后海大道和滨海大道交叉口东北侧");
+//        System.out.println(res);
+//    }
 
 }
