@@ -63,8 +63,12 @@ public class HbaseSink extends RichSinkFunction<TrafficInfo> implements Serializ
         TableName table = TableName.valueOf(tableName);
         if (! admin.tableExists(table)) {
             HTableDescriptor hTableDescriptor = new HTableDescriptor(table);
-            // 固定只有 data 列簇
-            hTableDescriptor.addFamily(new HColumnDescriptor("data"));
+            hTableDescriptor.addFamily(new HColumnDescriptor(""));
+            hTableDescriptor.addFamily(new HColumnDescriptor(""));
+            hTableDescriptor.addFamily(new HColumnDescriptor(""));
+            hTableDescriptor.addFamily(new HColumnDescriptor(""));
+            hTableDescriptor.addFamily(new HColumnDescriptor(""));
+            hTableDescriptor.addFamily(new HColumnDescriptor(""));
             admin.createTable(hTableDescriptor);
         }
     }
