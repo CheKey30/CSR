@@ -1,6 +1,7 @@
 package com.CSR.DataProcessing.Utils;
 
 
+import com.CSR.DataProcessing.Beans.RoadInfo;
 import com.CSR.DataProcessing.Beans.TrafficInfo;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.flink.configuration.Configuration;
@@ -15,7 +16,7 @@ import org.apache.log4j.Logger;
 
 import java.io.Serializable;
 
-public class HbaseSink extends RichSinkFunction<TrafficInfo> implements Serializable {
+public class HbaseSink extends RichSinkFunction<RoadInfo> implements Serializable {
     private Logger log;
 
     private String hbase_zookeeper_host;
@@ -42,11 +43,16 @@ public class HbaseSink extends RichSinkFunction<TrafficInfo> implements Serializ
         admin = connection.getAdmin();
     }
 
-    public void invoke(TrafficInfo datas, Context context) throws Exception {
+    public void invoke(RoadInfo data, Context context) throws Exception {
         createTable("trafficInfo");
-        // 写数据
-        Put put = new Put(Bytes.toBytes(String.valueOf(System.currentTimeMillis())));
-        put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("roadName"),Bytes.toBytes(String.valueOf(datas.getMessage())));
+        //rowkey
+        Put put = new Put(Bytes.toBytes(data.getRoadIdentity()));
+        put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("roadName"),Bytes.toBytes(data.getRoadName()));
+        put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("congestionTrend"),Bytes.toBytes(data.getCongestionTrend()));
+        put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("sectionDesc"),Bytes.toBytes(data.getSectionDesc()));
+        put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("status"),Bytes.toBytes(data.getStatus()));
+        put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("speed"),Bytes.toBytes(data.getSpeed()));
+        put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("congestionDistance"),Bytes.toBytes(data.getCongestionDistance()));
         connection.getTable(TableName.valueOf("trafficInfo")).put(put);
     }
 
