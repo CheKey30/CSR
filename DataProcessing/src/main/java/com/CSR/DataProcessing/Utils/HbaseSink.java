@@ -46,7 +46,7 @@ public class HbaseSink extends RichSinkFunction<TrafficInfo> implements Serializ
         createTable("trafficInfo");
         // 写数据
         Put put = new Put(Bytes.toBytes(String.valueOf(System.currentTimeMillis())));
-        put.addColumn(Bytes.toBytes("traffic"),Bytes.toBytes("info"),Bytes.toBytes(String.valueOf(datas)));
+        put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("roadName"),Bytes.toBytes(String.valueOf(datas.getMessage())));
         connection.getTable(TableName.valueOf("trafficInfo")).put(put);
     }
 
@@ -63,12 +63,7 @@ public class HbaseSink extends RichSinkFunction<TrafficInfo> implements Serializ
         TableName table = TableName.valueOf(tableName);
         if (! admin.tableExists(table)) {
             HTableDescriptor hTableDescriptor = new HTableDescriptor(table);
-            hTableDescriptor.addFamily(new HColumnDescriptor(""));
-            hTableDescriptor.addFamily(new HColumnDescriptor(""));
-            hTableDescriptor.addFamily(new HColumnDescriptor(""));
-            hTableDescriptor.addFamily(new HColumnDescriptor(""));
-            hTableDescriptor.addFamily(new HColumnDescriptor(""));
-            hTableDescriptor.addFamily(new HColumnDescriptor(""));
+            hTableDescriptor.addFamily(new HColumnDescriptor("roadData"));
             admin.createTable(hTableDescriptor);
         }
     }
