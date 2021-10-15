@@ -3,6 +3,9 @@ package com.csr.datasearching.service.intf;
 
 import com.CSR.DataObtaining.Beans.ChargingStationInfo;
 import com.CSR.DataProcessing.Beans.RoadTraffic;
+import com.csr.datasearching.model.Station;
+
+import java.util.List;
 
 /**
  * @author:shuchen
@@ -13,7 +16,7 @@ public interface ChargingStationService {
 
     public String getStationNameByCarId(String carId);
 
-    public String getStationInfo(ChargingStationInfo info);
+    public List<Station> getStationInfo(Station info);
 
     public String getRoadInfo(RoadTraffic info);
 }
