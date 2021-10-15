@@ -26,4 +26,6 @@ public class ChargingStationServiceImpl implements ChargingStationService {
     public String getRoadInfo(RoadTraffic info) {
         return null;
     }
+
+    public String getCongestionByRoadName(String roadName){return null;}
 }
