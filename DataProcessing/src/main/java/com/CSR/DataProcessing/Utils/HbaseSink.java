@@ -11,7 +11,9 @@ import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.security.User;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.log4j.Logger;
 
 import java.io.Serializable;
@@ -39,7 +41,8 @@ public class HbaseSink extends RichSinkFunction<RoadInfo> implements Serializabl
         configuration.set("hbase.zookeeper.property.clientPort", hbase_zookeeper_port);
         configuration.set("hbase.zookeeper.quorum", hbase_zookeeper_host);
 
-        connection = ConnectionFactory.createConnection(configuration);
+        UserGroupInformation userGroupInformation = UserGroupInformation.createRemoteUser("root");
+        connection = ConnectionFactory.createConnection(configuration, User.create(userGroupInformation));
         admin = connection.getAdmin();
     }
 
@@ -47,6 +50,7 @@ public class HbaseSink extends RichSinkFunction<RoadInfo> implements Serializabl
         createTable("trafficInfo");
         //rowkey
         Put put = new Put(Bytes.toBytes(data.getRoadIdentity()));
+        System.out.println(data.getRoadIdentity());
         put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("roadName"),Bytes.toBytes(data.getRoadName()));
         put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("congestionTrend"),Bytes.toBytes(data.getCongestionTrend()));
         put.addColumn(Bytes.toBytes("roadData"),Bytes.toBytes("sectionDesc"),Bytes.toBytes(data.getSectionDesc()));

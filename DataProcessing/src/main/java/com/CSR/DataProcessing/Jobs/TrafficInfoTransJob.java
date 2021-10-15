@@ -48,9 +48,12 @@ public class TrafficInfoTransJob {
             @Override
             public void flatMap(String s, Collector<RoadTraffic> collector) throws Exception {
                 TrafficInfo  trafficInfo = TrafficInfoTranceUtil.getTrafficInfoFromString(s);
-                for(RoadTraffic r: trafficInfo.getRoadTraffic()){
-                    if(!r.getCongestionSections().isEmpty()){
-                        collector.collect(r);
+                if(trafficInfo!=null){
+                    for(RoadTraffic r: trafficInfo.getRoadTraffic()){
+                        if(r.getCongestionSections()!=null){
+                            System.out.println(r.getRoadName());
+                            collector.collect(r);
+                        }
                     }
                 }
             }
